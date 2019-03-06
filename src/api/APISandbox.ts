@@ -1,15 +1,22 @@
 import { Observable } from 'rxjs';
-import { Env, EnvironmentsRequest, SelectEnvRequest, SelectedEnvRequest } from './Env';
+import {
+  EnvironmentsRequest,
+  EnvironmentsResponse,
+  SelectedEnvRequest,
+  SelectedEnvResponse,
+  SelectEnvRequest,
+  SelectEnvResponse,
+} from './methods';
 import { Method, MethodsRequest, SelectMethodRequest, SelectedMethodRequest } from './Method';
 import { InvokeRequest, LogsRequest, APISandboxEvent } from './Invoke';
 
 export interface APISandbox {
   // Provides observable of all available environments
-  environments$(environmentsRequest: EnvironmentsRequest): Observable<Env>;
+  environments$(environmentsRequest: EnvironmentsRequest): EnvironmentsResponse;
   // Select an environment
-  selectEnv(selectEnvRequest: SelectEnvRequest): Promise<void>;
+  selectEnv(selectEnvRequest: SelectEnvRequest): SelectEnvResponse;
   // Provide observable on the currently selected environment
-  selectedEnv$(selectedEnvRequest: SelectedEnvRequest): Observable<Env>;
+  selectedEnv$(selectedEnvRequest: SelectedEnvRequest): SelectedEnvResponse;
 
   // Provides list of available service methods in the selected environment
   methods$(methodsRequest: MethodsRequest): Observable<Method>;
@@ -22,5 +29,5 @@ export interface APISandbox {
   invoke(invokeRequest: InvokeRequest): Promise<void>;
 
   // Provide an observable of all events (requests, responses)
-  logs(logsRequest: LogsRequest): Observable<APISandboxEvent>;
+  logs$(logsRequest: LogsRequest): Observable<APISandboxEvent>;
 }
