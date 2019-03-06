@@ -36,3 +36,11 @@
     |methodName    |String                |
     |request       |InvokeRequest         |
     |response      |any                   |
+
+
+  Scenario: Call invoke method when no method is currently selected
+    Given API Sandbox Service with invoke method
+    And   user received several service methods from methods$ subscription
+    And   no service method is selected
+    When  user calls invoke method with a valid InvokeRequest
+    Then  a relevant error is returned

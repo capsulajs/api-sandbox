@@ -65,10 +65,9 @@
           |requestTemplate |any[] |
           |documentation   |String|
     And  selectedMethod$ subscription emits new object each time the selected method is updated
-    
-  Scenario: selectedMethod$ while no service method is selected
-    Given API Sandbox Service with selectedMethod$ method
-    And   user received several service methods from methods$ subscription
-    And   no service method is selected
-    When  user subscribes to selectedMethod$ method with a valid SelectedMethodRequest
+   
+  Scenario: Call methods$ when no environment is currently selected
+    Given API Sandbox Service with methods$ method
+    And   no environment is selected
+    When  user subscribes to methods$ with a valid MethodsRequest
     Then  a relevant error is returned
